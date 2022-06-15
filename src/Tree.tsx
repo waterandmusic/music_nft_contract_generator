@@ -4,15 +4,62 @@ import styled from "styled-components";
 enum Type {
   multipleChoice,
   text,
+  bigText,
   endpointFail,
   endpointSuccess,
 }
 
 const EducationPoint = styled.div`
+  background:#faf7f7;
+  border-radius: 5px;
+  border-left: 3px solid #ffef9c;
+  padding: 10px 20px;
+
   a {
     color: #3498db;
   }
+
+  .ReadMore{
+    margin:12px;
+    background-color: rgba(0,0,0,0);
+    font-weight: bold;
+    color: blue;
+    border: none;
+    text-align: center;
+    // text-decoration: none;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .3s;
+  }
+  .ReadMore:hover{
+    color: black;
+  }
+  .ExtendedContent {
+    // padding: 0 18px;
+    opacity: 0;
+    // background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .2s ease-out, opacity .8s ease-out;
+  }
 `;
+
+const readMore = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // console.log('checked')
+  const button = (e.target as HTMLButtonElement)
+  const content = (button.nextSibling as HTMLElement)
+
+  if (content.style.maxHeight !== `${content.scrollHeight}px`) {
+    content.style.maxHeight = `${content.scrollHeight}px`
+    content.style.opacity = '1'
+    
+    button.textContent = 'Read Less'
+  } else {
+    content.style.maxHeight = '0px'
+    content.style.opacity = '0'
+    button.textContent = 'Read More'
+  }
+}
 
 const tree: {
   [key: string]: {
@@ -611,6 +658,564 @@ const tree: {
   },
   "18": {
     question:
+      "Does your NFT promise off chain benefits?",
+    information: (
+      <div>
+        <EducationPoint>
+          <h2>Some things to consider:</h2>
+          <h3>Merch & Access Off-chain Benefits</h3>
+          <h4>Limitations</h4>
+          <p>
+            Given the growing diversity of in-real-life (IRL) forms of utility associated 
+            with the sale of an NFT, it is near impossible to ensure that our NFT contract 
+            template builder captures every possible IRL utility case perfectly. There 
+            will always be edge cases that require unambiguous, detailed contractual 
+            language, and many IRL offerings will include unique elements best addressed 
+            with a customized approach. For this reason, <b>we would like to reiterate that 
+            this tool is not legal advice, and we remind all users to consult with a 
+            lawyer on their projects.</b>
+          </p>
+          <p>
+            Nonetheless, to provide a basic contractual language template around IRL 
+            benefits for NFTs, we’ve separated potential IRL utilities into two distinct 
+            categories: MERCH and ACCESS. Distinguishing these groups allows us to 
+            provide broad language covering the utility deployed  across music NFT 
+            marketplaces to date, which may then be tailored further by individual 
+            projects to meet the specific utilities included with their NFT project.
+          </p>
+        </EducationPoint>
+        <EducationPoint>
+          <h4>Buyer and Artist Responsibilities with off-chain benefits</h4>
+          <p>
+            While solutions for managing the redemption and tracking of off-chain benefits 
+            are still developing, several Web3-based approaches have been proposed 
+            including “burning” and “counting”:
+          </p>
+          <ul>
+            <li>
+              Burning (i.e. destroying) an NFT once an off-chain benefit is claimed by a 
+              buyer, and replacing their original token with one that features slightly 
+              different artwork, representing the “used-up benefit”.
+            </li>
+            <li>
+              Counting, which involves tracking the quantity of benefits remaining in the 
+              smart contract. This method keeps track of each benefit and each NFT in an 
+              on-chain counter which decrements on redemption.
+            </li>
+            <li>
+              Read below for additional methods
+            </li>
+          </ul>
+          <button type="button" className="ReadMore" onClick={readMore}>Read More</button>
+          <div className='ExtendedContent'> 
+            <p>
+              Numerous Web3 solutions can demonstrate when a real-world benefit attached 
+              to an NFT has been redeemed. While this project still firmly believes that 
+              this responsibility should lie with the artist, other potential solutions 
+              exist. Two standard options are burning and counting. Burning an NFT 
+              requires the artist to create separate tokens for each benefit. The token 
+              is destroyed or “burned when that benefit is claimed.” For example, when 
+              someone claims tickets using their Kings of Leon NFT, that NFT is destroyed, 
+              and a new one with slightly different artwork is airdropped to the buyer. 
+              This allows subsequent purchasers to see that the NFT has been used.
+            </p>
+            <p>
+              Counting involves tracking the quantity remaining in the smart contract. 
+              This method keeps track of each benefit and each NFT in an on-chain counter 
+              which decrements on redemption.
+            </p>
+            <p>
+              Some other ways of solving this problem are:
+            </p>
+            <ol>
+              <li>
+                In the case of merch, each NFT can have an edition number. If there are 
+                only 100 posters available, you can see how many NFTs have been purchased. 
+                You can also see who the seller is so you know if you’re buying from the 
+                artist or a reseller. You can also burn the NFT to collect the poster.
+              </li>
+              <li>
+                When you buy an NFT, you connect to a form that checks the edition number 
+                against a database to see if the NFT has been redeemed or not. If not, 
+                then you can enter shipping information. This is off-chain and presents 
+                other technical challenges.
+              </li>
+              <li>
+                Proof of Attendance Protocol or "POAP" is another solution. With this 
+                method, you can claim an airdrop by providing your wallet ID which is 
+                then verified at the door. However, those interviewed on the topic noted 
+                fans generally don’t understand this yet, so email works better.
+              </li>
+            </ol>
+          </div>
+        </EducationPoint>
+      </div>
+    ),
+    type: Type.multipleChoice,
+    options: [
+      {
+        text: "Yes, this NFT grants certain off-chain benefits",
+      },
+      {
+        text: "No, this NFT does not offer any off-chain benefits",
+      },
+    ],
+    next: ["19", "33"],
+  },
+  "19": {
+    question:
+      "Do your off chain benefits include tickets for in real life concerts?",
+    type: Type.multipleChoice,
+    options: [
+      {
+        text: "Yes, this NFT grants tickets to live shows, or live performance perks",
+      },
+      {
+        text: "No, this NFT does not offer any tickets or perks to irl shows",
+      },
+    ],
+    next: ["20", "21"],
+  },
+  "20": {
+    question:
+      "This contract builder doesn't support this use case, and we recommend consulting with a lawyer. While this contract is no longer valid for your situation, if you simply want to continue exploring this tool and accompanying education points, change your answers to the previous questions by clicking on them above (text in gray).",
+    information: (
+      <EducationPoint>
+        <h2>Tickets - Why we didn’t support certain off chain benefits</h2>
+        <p>
+          We omitted the packaging of IRL event tickets with NFTs from this 
+          version of the contract builder owing to the numerous technical and 
+          logistical challenges that still exist around their implementation. 
+          These challenges include:
+        </p>
+        <ul>
+          <li>
+            Developing administratively and technically simple means to enable 
+            ticket redemption at events.
+          </li>
+          <li>
+            Developing means to incorporate an NFT-based ticketing flow into 
+            traditional physical (and digital) ticketing models.
+          </li>
+          <li>
+            The wide variety of possible NFT ticketing implementations including 
+            single tickets, multiple tickets, and lifetime ‘golden’ tickets, 
+            among others, each with their own challenges around redemption and 
+            tracking.
+          </li>
+        </ul>
+        <p>
+          We will continue to track the evolution and implementation of these 
+          benefits and monitor as standards and best practices solidify and will 
+          look to include them in future versions of the contract builder.
+        </p>
+
+        <button type="button" className="ReadMore" onClick={readMore}>Read More</button>
+        <div className='ExtendedContent'> 
+          <p>
+            When deciding which types of off-chain benefits to add to this version 
+            of the contract builder template, we explored adding language that 
+            covers the inclusion of live, IRL event tickets as a benefit packaged 
+            with the sale of NFTs. This use-case for NFTs is becoming more common 
+            as individual artists {" "}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.rollingstone.com/culture-council/articles/nfts-game-changer-industry-1151676/"
+            >
+            experiment
+            </a> with bundling tickets and live
+            performance perks with NFTs, and major entertainment companies like{" "}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://business.ticketmaster.com/business-solutions/nfl-partners-with-ticketmaster-to-offer-limited-edition-nfts-to-celebrate-super-bowl-lvi/"
+            >
+              Ticketmaster
+            </a> begin to test the market for NFT ticketing solutions.
+          </p>
+          <p>
+            As we continued to explore this form of off-chain benefits, we realized 
+            that the ecosystem around live ticketing via NFTs is still nascent and 
+            evolving and comes with plenty of logistical and technical challenges. 
+            There remain questions about the best technical practices for enabling 
+            the redemption of this type of benefit. Does the NFT act as a ticket 
+            that guarantees event entry? Or should the actual pass that ensures 
+            event access come in some other form, such as an additional NFT 
+            airdropped to holders of the original NFTs? Another option, which is 
+            currently being tested by the Web3 social club {" "}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://poolsuite.net/"
+            >
+              Poolsuite
+            </a>, is the use of
+            token-gated QR codes, accessible by connecting your crypto wallet to 
+            their website. Once the form of ticket is decided, more issues arise. 
+            For instance, how are options for providing tickets to NFT holders 
+            validated on-site, where entry is presumably linked to the barcodes 
+            associated with traditional physical and digital tickets?
+          </p>
+          <p>
+            There are also many logistical hurdles around incorporating an NFT-based 
+            ticketing flow into the traditional physical (and digital) ticketing 
+            model. For example, how are tickets associated with NFT purchases 
+            incorporated into tracking overall ticket sales and live event accounting? 
+            Suppose an individual artist provides live event tickets as a benefit with 
+            their NFTs. In that case, they will likely have to work closely with event 
+            promoters and third-party ticketing providers to coordinate fulfillment 
+            and cover the costs for essentially “comped” tickets. Assigning NFT 
+            holders guest list spots has been a common work-around for artists, but 
+            this has its problems. Coordination moves to falling solely on the artist 
+            team (as opposed to 3rd party ticketing platform), which means gathering 
+            the names of potentially pseudonymous NFT purchasers and figuring out how 
+            to scale up to many NFT holders. There are only so many guest list spots 
+            to go around. Suppose there are more NFT holders than guest list spots 
+            available. In that case, an artist will run into the same problem of 
+            dealing directly with event promoters to purchase additional seats and 
+            incur transactional costs around these activities. Similarly, this manual 
+            redemption process creates timing issues when adding NFT holders to an 
+            event guest list. Is there a limited time frame for claiming one’s tickets, 
+            or will artists and their teams need to monitor their email up to showtime 
+            to ensure fulfillment?
+          </p>
+          <p>
+            An additional complication is the wide variety of possible NFT ticketing 
+            implementations. NFTs can be bundled to include single event tickets. 
+            Still, we’ve also seen artists {" "}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.rollingstone.com/pro/news/kings-of-leon-when-you-see-yourself-album-nft-crypto-1135192/"
+            >
+              offering a “golden ticket.”
+            </a> The benefit
+            provides lifetime access to that artist’s live performances or multiple 
+            events. The logistics around honoring recurring live benefits associated 
+            with an NFT get even more complicated. Artists need to continuously track 
+            ownership of the NFT, as it may be sold and resold, and determine how best 
+            to enable redemption while limiting the ability to abuse the system.
+          </p>
+          <p>
+            Ultimately, we decided to omit the NFT x IRL ticketing use case from this 
+            version of the contract builder template, owing to many technical and 
+            logistical challenges currently associated with these types of products. 
+            We will continue to track the evolution and implementation of these 
+            benefits and monitor as standards and best practices solidify and will 
+            look to include them in future versions of the contract builder.
+          </p>
+        </div>
+      </EducationPoint>
+    ),
+    type: Type.endpointFail,
+  },
+  "21": {
+    question:
+      "Do your off chain benefits include redeemable merchandise?",
+    information: (
+      <EducationPoint>
+        <h2>Some things to consider:</h2>
+        <h3>How we define 'Merch'</h3>
+        <p>
+          We define MERCH utilities as physical or digital collectibles. 
+          Examples include physical posters, apparel, or other NFTs 
+          (i.e., digital MERCH).
+        </p>
+      </EducationPoint>
+    ),
+    type: Type.multipleChoice,
+    options: [
+      {
+        text: "Yes",
+      },
+      {
+        text: "No",
+      },
+    ],
+    next: ["22", "27"],
+  },
+  "22": {
+    question: "Describe your Merchandise item(s):",
+    // required: true,
+    type: Type.bigText,
+    next: "23",
+  },
+  "23": {
+    question: "Provide claiming instructions:",
+    information: (
+      <EducationPoint>
+        <h2>Example claiming instructions</h2>
+        <p>
+          “In order to claim the NFT MERCH, please send 
+          your name, email address, phone number, and crypto 
+          wallet # to ______. Once received, you will receive a 
+          notification from ___ confirming that you have been 
+          identified as the holder of the NFT along with more 
+          specific instructions for how to claim/redeem your NFT 
+          MERCH."
+        </p>
+      </EducationPoint>
+    ),
+    // required: true,
+    type: Type.bigText,
+    next: "24",
+  },
+  "24": {
+    question: "What is your contact information with regards to merchandise?",
+    information: (
+      <EducationPoint>
+        <h2>Some things to consider</h2>
+        <h3>Correspondence for Artist and Buyer</h3>
+        <p>
+          NFTs with real-world benefits attached require some sort of 
+          customer service to fulfill them. An artist offering merch or 
+          access needs to be aware that someone has to serve this role, 
+          in order to ensure that the purchaser is able to claim what 
+          they’ve paid for. This customer service consists of two parts: 
+          1) Some way for the purchaser to contact the artist or their 
+          team, typically via an email address, and 2) A method for the 
+          artist to track whether benefits have been redeemed so they can 
+          inform purchasers of this information.
+        </p>
+        <button type="button" className="ReadMore" onClick={readMore}>Read More</button>
+        <div className='ExtendedContent'> 
+          <p>
+            When considering customer support, there are decades of 
+            music-industry practice and standards around artists selling 
+            “merch” and “access.” These standard support channels should 
+            remain open and transfer over to Web3. In all likelihood, 
+            buyers will go to an established website where merchandise is 
+            already available and where there will be a point of contact 
+            for troubleshooting. We will not get into the basics of 
+            fulfillment here. We will, however, cover what is different 
+            when integrating an NFT into the fulfillment process. We 
+            believe the artist should provide an email address at minimum 
+            as a designated channel for NFT-related customer support, 
+            especially in the case where a buyer of an NFT has trouble 
+            accessing an experience that they bought access to through 
+            the token. For instance, Coachella provided a contact email 
+            to everyone who purchased tickets via NFTs for post-purchase 
+            inquiries. This solution may be considered low-tech, but it is 
+            easy for consumers to use and understand in an already novel 
+            process.
+          </p>
+          <p>
+            Given the potential for secondary NFT sales, artists assume 
+            the new responsibility of tracking fulfillment. For example, 
+            if an NFT allows the buyer to claim one hoodie and two 
+            shirts, the hoodie may have been claimed, while the shirts 
+            have not. The artist needs to make this information available 
+            for buyers on the secondary market. Otherwise, an NFT may 
+            sell again under the pretense of merchandise or access 
+            claimable when it is not. This example further supports 
+            providing a designated email for NFT-related inquiries. The 
+            artist is also responsible for alerting fans when merch or 
+            access is "sold out" or if the offer expires.
+          </p>
+        </div>
+      </EducationPoint>
+    ),
+    // required: true,
+    type: Type.text,
+    next: "25",
+  },
+  "25": {
+    question:
+      "Does this Merch benefit expire?",
+    information: (
+      <EducationPoint>
+        <h2>Some things to consider:</h2>
+        <p>
+          An expiration date makes sense for certain real-world benefits. 
+          An expiration date avoids the potential problem of a buyer 
+          popping up years after an NFT is sold and trying to claim a 
+          real-world benefit. The responsibility is on the artist’s team 
+          to figure out the best way to approach this issue. When Verite 
+          released an NFT that included a physical cassette tape, her 
+          team set a final claim date. She informed fans that the cassette 
+          was attached only to the original sale. Then, she announced that 
+          her team would take a snapshot of the smart contract at a 
+          specified date and time. If you wanted to claim the tape, you 
+          had until the date and time of the snapshot to acquire the NFT, 
+          after which secondary sales were no longer valid.
+        </p>
+      </EducationPoint>
+    ),
+    type: Type.multipleChoice,
+    options: [
+      {
+        text: "Yes",
+      },
+      {
+        text: "No",
+      },
+    ],
+    next: ["26", "27"],
+  },
+  "26": {
+    question: "Enter the expiration date (YYYY-MM-DD):",
+    // required: true,
+    type: Type.text,
+    next: "27",
+  },
+  "27": {
+    question:
+      "Do your off chain benefits include Access?",
+    information: (
+      <EducationPoint>
+        <h2>Some things to consider:</h2>
+        <h3>How we define 'Access'</h3>
+        <p>
+          We define ACCESS utilities as those that provide IRL 
+          experiences upon redemption and require the physical or 
+          digital presence of the redeemer. Examples of ACCESS 
+          utilities include IRL artist meet-and-greets, access to 
+          Discord servers, or exclusive Zoom sessions with artists. 
+          For now, this category does not include concert tickets or 
+          other traditional “ticketing” applications that require 
+          coordination with another third party, like a venue or tour 
+          promoter.
+        </p>
+      </EducationPoint>
+    ),
+    type: Type.multipleChoice,
+    options: [
+      {
+        text: "Yes",
+      },
+      {
+        text: "No",
+      },
+    ],
+    next: ["28", "33"],
+  },
+  "28": {
+    question: "Describe your Access benefit:",
+    // required: true,
+    type: Type.bigText,
+    next: "29",
+  },
+  "29": {
+    question: "Provide claiming instructions:",
+    information: (
+      <EducationPoint>
+        <h2>Example claiming instructions</h2>
+        <p>
+          “In order to claim the NFT ACCESS, please send
+          your name, email address, phone number, and crypto
+          wallet # to ______. Once received, you will receive a
+          notification from ___ confirming that you have been
+          identified as the holder of the NFT along with more
+          specific instructions for how to claim/redeem your NFT
+          ACCESS."
+        </p>
+      </EducationPoint>
+    ),
+    // required: true,
+    type: Type.bigText,
+    next: "30",
+  },
+  "30": {
+    question: "What is your contact information with regards to access?",
+    information: (
+      <EducationPoint>
+        <h2>Some things to consider</h2>
+        <h3>Correspondence for Artist and Buyer</h3>
+        <p>
+          NFTs with real-world benefits attached require some sort of
+          customer service to fulfill them. An artist offering merch or
+          access needs to be aware that someone has to serve this role,
+          in order to ensure that the purchaser is able to claim what
+          they’ve paid for. This customer service consists of two parts:
+          1) Some way for the purchaser to contact the artist or their
+          team, typically via an email address, and 2) A method for the
+          artist to track whether benefits have been redeemed so they can
+          inform purchasers of this information.
+        </p>
+        <button type="button" className="ReadMore" onClick={readMore}>Read More</button>
+        <div className='ExtendedContent'>
+          <p>
+            When considering customer support, there are decades of
+            music-industry practice and standards around artists selling
+            “merch” and “access.” These standard support channels should
+            remain open and transfer over to Web3. In all likelihood,
+            buyers will go to an established website where merchandise is
+            already available and where there will be a point of contact
+            for troubleshooting. We will not get into the basics of
+            fulfillment here. We will, however, cover what is different
+            when integrating an NFT into the fulfillment process. We
+            believe the artist should provide an email address at minimum
+            as a designated channel for NFT-related customer support,
+            especially in the case where a buyer of an NFT has trouble
+            accessing an experience that they bought access to through
+            the token. For instance, Coachella provided a contact email
+            to everyone who purchased tickets via NFTs for post-purchase
+            inquiries. This solution may be considered low-tech, but it is
+            easy for consumers to use and understand in an already novel
+            process.
+          </p>
+          <p>
+            Given the potential for secondary NFT sales, artists assume
+            the new responsibility of tracking fulfillment. For example,
+            if an NFT allows the buyer to claim one hoodie and two
+            shirts, the hoodie may have been claimed, while the shirts
+            have not. The artist needs to make this information available
+            for buyers on the secondary market. Otherwise, an NFT may
+            sell again under the pretense of merchandise or access
+            claimable when it is not. This example further supports
+            providing a designated email for NFT-related inquiries. The
+            artist is also responsible for alerting fans when merch or
+            access is "sold out" or if the offer expires.
+          </p>
+        </div>
+      </EducationPoint>
+    ),
+    // required: true,
+    type: Type.text,
+    next: "31",
+  },
+  "31": {
+    question:
+      "Does this Access benefit expire?",
+    information: (
+      <EducationPoint>
+        <h2>Some things to consider:</h2>
+        <p>
+          An expiration date makes sense for certain real-world benefits.
+          An expiration date avoids the potential problem of a buyer
+          popping up years after an NFT is sold and trying to claim a
+          real-world benefit. The responsibility is on the artist’s team
+          to figure out the best way to approach this issue. When Verite
+          released an NFT that included a physical cassette tape, her
+          team set a final claim date. She informed fans that the cassette
+          was attached only to the original sale. Then, she announced that
+          her team would take a snapshot of the smart contract at a
+          specified date and time. If you wanted to claim the tape, you
+          had until the date and time of the snapshot to acquire the NFT,
+          after which secondary sales were no longer valid.
+        </p>
+      </EducationPoint>
+    ),
+    type: Type.multipleChoice,
+    options: [
+      {
+        text: "Yes",
+      },
+      {
+        text: "No",
+      },
+    ],
+    next: ["32", "33"],
+  },
+  "32": {
+    question: "Enter the expiration date (YYYY-MM-DD):",
+    // required: true,
+    type: Type.text,
+    next: "33",
+  },
+  "33": {
+    question:
       "If the buyer of this NFT later sells it on a secondary market, what percentage of the resale profit (if any) should be directed back to you?",
     information: (
       <EducationPoint>
@@ -642,21 +1247,21 @@ const tree: {
     ),
     type: Type.text,
     required: true,
-    next: "19",
+    next: "34",
   },
-  "19": {
+  "34": {
     question: "What US state do you reside in?",
     type: Type.text,
     required: true,
-    next: "20",
+    next: "35",
   },
-  "20": {
+  "35": {
     question: "What is the email address of the artist?",
     type: Type.text,
     required: true,
-    next: "21",
+    next: "36",
   },
-  "21": {
+  "36": {
     question:
       "You're done! Be sure to scroll through the generated contract on this site before printing to see additional education points (in yellow) explaining their corresponding clauses.",
     information: (

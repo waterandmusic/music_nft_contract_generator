@@ -53,6 +53,15 @@ const Input = styled.input`
   outline: none;
 `;
 
+const BigInput = styled.textarea`
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 10px;
+  width: 400px;
+  height: 200px;
+  outline: none;
+`;
+
 const PreviousQuestion = styled.div`
   color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
@@ -144,7 +153,7 @@ function Questions() {
     if (resp.length > 0 && tree[key].type === Type.text) {
       setText(resp[0].answer);
     }
-    setResponses(responses.filter((i) => i.question <= key));
+    setResponses(responses.filter((i) => parseInt(i.question) <= parseInt(key)));
   };
 
   return (
@@ -192,6 +201,29 @@ function Questions() {
               }}
             >
               <Input
+                value={text}
+                onChange={(event) => {
+                  setText(event.target.value);
+                }}
+              />
+              <br />
+              <br />
+              <Option
+                aria-disabled={Boolean(currentQuestion.required && !text)}
+                onClick={submitText}
+              >
+                Submit
+              </Option>
+            </form>
+          )}
+          {currentQuestion.type === Type.bigText && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitText();
+              }}
+            >
+              <BigInput
                 value={text}
                 onChange={(event) => {
                   setText(event.target.value);
