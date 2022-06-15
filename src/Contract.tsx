@@ -119,8 +119,14 @@ const SEmbed = ({ r, id }: { r: Response[]; id: string }) => {
     );
 };
 
+const Answer = ({ r, id, desire }: { r: Response[]; id: string; desire: string}) => {
+  const resp = r.filter((i) => i.question === id);
+  return resp[0]?.answer === desire
+};
+
 function Contract() {
   const [r = []] = useGlobal("responses");
+  //  && Answer({ r, id: '0', desire: '1' })
   const [cqid] = useGlobal("currentQuestion");
 
   if (!cqid)
@@ -146,7 +152,7 @@ function Contract() {
             </em>
           </p>
         )}
-        {cqid !== "21" && tree[cqid].type !== Type.endpointFail && (
+        {cqid !== "36" && tree[cqid].type !== Type.endpointFail && (
           <p>
             <em>
               Your contract isn't finished yet! More terms will appear here as
@@ -456,7 +462,7 @@ function Contract() {
             </InlineEducationPoint>
           </div>
         )}
-        {Number(cqid) > 18 && (
+        {Number(cqid) > 33 && (
           <div>
             <SectionTitle>4.0 - TRANSFERS</SectionTitle>
             <p>
@@ -469,7 +475,7 @@ function Contract() {
               including a link or other method by which the terms of this
               Agreement can be accessible by the Transferee; and (iii) Artist
               and shall be entitled to receive an aggregate of{" "}
-              <SEmbed r={r} id="18" />
+              <SEmbed r={r} id="33" />
               (%) percent of the gross amounts paid by the Transferee as set
               forth in the on-chain metadata associated with the NFT. Artist
               shall be paid on the same terms and at the same time as Transferor
@@ -502,13 +508,13 @@ function Contract() {
             </Subparagraph>
           </div>
         )}
-        {Number(cqid) > 19 && (
+        {Number(cqid) > 34 && (
           <div>
             <SectionTitle>5.0 - JURISDICTION</SectionTitle>
             <p>
               This Agreement shall be construed and enforced in accordance with
               the laws of the United States of America and of the State of{" "}
-              <SEmbed r={r} id="19" />
+              <SEmbed r={r} id="34" />
             </p>
             <InlineEducationPoint>
               <p>
@@ -536,7 +542,7 @@ function Contract() {
               arbitration conducted by the American Arbitration Association
               (AAA) under its Commercial Arbitration Rules (or such substitute
               provisions therefore then in effect). Any such arbitration shall
-              be conducted in <SEmbed r={r} id="19" />. The arbitration of such
+              be conducted in <SEmbed r={r} id="34" />. The arbitration of such
               issues, including the determination of the amount of any damages
               suffered by any party hereof by reason of the acts or omissions of
               another shall be to the exclusion of any court of law except as
@@ -558,7 +564,7 @@ function Contract() {
             </InlineEducationPoint>
           </div>
         )}
-        {Number(cqid) > 20 && (
+        {Number(cqid) > 35 && (
           <div>
             <SectionTitle>8.0 - BREACH</SectionTitle>
             <p>
@@ -572,7 +578,7 @@ function Contract() {
               Agreement the other party must give written notice and the party
               receiving that notice has 10 business days to "cure" the breach
               identified in that notice. All notices to Artist shall be sent to{" "}
-              <SEmbed r={r} id="20" />.
+              <SEmbed r={r} id="35" />.
             </p>
             <InlineEducationPoint>
               <p>
@@ -633,6 +639,207 @@ function Contract() {
                 mentioned in the contract.
               </p>
             </InlineEducationPoint>
+          </div>
+        )}
+        {Number(cqid) > 21 && (Answer({ r, id: '21', desire: '0' }) || Answer({ r, id: '27', desire: '0' })) && (
+          <SectionTitle>11.0 - OFF-CHAIN BENEFITS</SectionTitle>
+        )}
+        {Number(cqid) > 21 && Answer({ r, id: '21', desire: '0' }) && (
+          <div>
+            <Section>Off Chain Benefits That Resemble Merch or Other Collectibles</Section>
+            {Number(cqid) > 22 && (
+              <p>
+                (a)	In addition to the NFT Rights, Artist hereby grants Buyer the 
+                right to redeem or acquire the following gratis merchandise item(s){" "}
+                <SEmbed r={r} id='22' /> (the “NFT Merchandise”):
+              </p>
+            )}
+            {Number(cqid) > 23 && (
+              <div>
+                <p>
+                  (b)	
+                  <Subparagraph>
+                    (i) In order to claim the NFT Merchandise, Buyer shall comply with 
+                    the following instructions for how Buyer can redeem or acquire the NFT 
+                    Merchandise (i.e. by having Buyer provide a mailing or email address, or 
+                    having Buyer connect a wallet to a third party service, etc.):
+                  </Subparagraph>
+                </p>
+                <Subparagraph>
+                  (ii) {" "}
+                  <SEmbed r={r} id='23' />
+                </Subparagraph>
+              </div>
+            )}
+            {Number(cqid) > 24 &&(
+              <div>
+                <Subparagraph>
+                  (iii)	If not provided above, Artist shall clearly and conspicuously provide 
+                  Claiming Instructions on Artist’s website or on the Platform where the NFT is 
+                  listed for sale (“Claiming Instructions”). Buyer shall be responsible for 
+                  fully complying with the Claiming Instructions and Artist shall have no 
+                  liability as a result of Buyer’s failure to do so. In the event Buyer is unable 
+                  to acquire or redeem the NFT Merchandise even after complying with the Claiming 
+                  Instructions, Buyer’s sole remedy is to submit a notification to {" "}
+                  <SEmbed r={r} id="24" /> so that Artist may use reasonable efforts to remedy the issue.
+                </Subparagraph>
+                {Number(cqid) > 26 && Answer({ r, id: '25', desire: '0' }) && (
+                  <Subparagraph>
+                    (iv)	If Buyer does not promptly comply with the Claiming Instructions, Buyer’s 
+                    right to claim the  NFT Merchandise shall expire on {" "}
+                    <SEmbed r={r} id='26' />
+                  </Subparagraph>
+                )}
+                <p>
+                  (c)
+                  <Subparagraph>
+                    (i)	The parties acknowledge and understand that future situations or changing 
+                    circumstances that are outside Artist’s control may result in Artist being unable 
+                    to deliver or provide the NFT Merchandise despite Buyer’s compliance with the original 
+                    Claiming Instructions. In such an event, Artist may update this Agreement or the 
+                    Claiming Instructions in its sole discretion, provided, however, that any such update 
+                    must be intended primarily for the benefit of Buyer and also be reasonably likely to 
+                    benefit Buyer (a “Claiming Update”). In the event of any Claiming Update by Artist, 
+                    Artist will notify Buyer by updating the Claiming Instructions, amending this Agreement 
+                    wherever it is posted, and/or use other generally accepted forms of communication. 
+                    Buyer’s continued possession of the NFT after the posting of such Claiming Update 
+                    constitutes Buyer’s acceptance and agreement to such update. If Buyer does not agree to 
+                    be bound by such changes, Buyer may transfer or sell the NFT.
+                  </Subparagraph>
+                  <Subparagraph>
+                    (ii)	Furthermore, Artist will not be liable or responsible to Buyer, nor be deemed to 
+                    have defaulted under or breached this agreement, if Buyer is unable to redeem NFT 
+                    Merchandise as a result of any events beyond Artist’s ability to control, including acts 
+                    of God; flood, fire, earthquake, epidemics, pandemics, tsunami, explosion, war, invasion, 
+                    hostilities, terrorist threats or acts, riot or other civil unrest, government order, law, 
+                    or action, embargoes or blockades, strikes, labor stoppages or slowdowns or other 
+                    industrial disturbances, shortage of adequate or suitable internet connectivity, 
+                    telecommunication breakdown or shortage of adequate power or electricity, and other 
+                    similar events beyond Artist’s control.
+                  </Subparagraph>
+                </p>
+                <p>
+                  (d) Buyer acknowledges and agrees that if the NFT has been purchased on a secondary market, 
+                  the NFT Merchandise may have already been redeemed by the previous holder of the NFT. As 
+                  between Buyer and Artist, Buyer is solely responsible for determining whether any NFT 
+                  Merchandise that was originally included with the NFT can still be redeemed by complying 
+                  with the Claiming Instructions. However, Artist shall use reasonable efforts to make such 
+                  information readily available to the Buyer. For clarity, Artist shall have no liability by 
+                  virtue of the fact that NFT Merchandise is no longer available to be redeemed.
+                </p>
+                <p>
+                  (e) The parties agree that the value of NFT Merchandise is the standard retail value of 
+                  such item (e.g., $.99 for an mp3 file of a song).
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+        {Number(cqid) > 27 && Answer({ r, id: '27', desire: '0' }) && (
+          <div>
+            <Section>Off Chain Benefits That Grant Access to Exclusive Events, Fan Clubs, Etc.</Section>
+            {Number(cqid) > 28 && (
+              <div>
+                <p>
+                  (a)	In addition to the NFT Rights, Artist hereby grants Buyer the right attend 
+                  certain events, participate in certain experiences, or gain access to exclusive 
+                  fan clubs, online chat rooms, or other communities as more fully described below:
+                </p>
+                <p>
+                  <SEmbed r={r} id='28' />
+                </p>
+                <p>
+                  The foregoing is collectively referred to herein as the “NFT Access Rights”
+                </p>
+            </div>
+            )}
+            {Number(cqid) > 29 && (
+              <div>
+                <p>
+                  (b)	
+                  <Subparagraph>
+                    (i) In order to claim the NFT Access Rights, Buyer shall comply with the 
+                    following instructions for how Buyer can redeem or acquire the NFT Access 
+                    Rights (i.e. by having Buyer provide a mailing or email address, or having 
+                    Buyer connect a wallet to a third party service, etc.):
+                  </Subparagraph>
+                </p>
+                <Subparagraph>
+                  (ii) {" "}
+                  <SEmbed r={r} id='29' />
+                </Subparagraph>
+              </div>
+            )}
+            {Number(cqid) > 30 &&(
+              <div>
+                <Subparagraph>
+                  (iii)	If not provided above, Artist shall clearly and conspicuously provide 
+                  Claiming Instructions on Artist’s website or on the Platform where the NFT 
+                  is listed for sale (“Claiming Instructions”). Buyer shall be responsible for 
+                  fully complying with the Claiming Instructions and Artist shall have no liability 
+                  as a result of Buyer’s failure to do so. In the event Buyer is unable to acquire 
+                  or redeem the NFT Access Rights even after complying with the Claiming Instructions, 
+                  Buyer’s sole remedy is to submit a notification to {" "}
+                  <SEmbed r={r} id="30" /> so that Artist may use reasonable efforts to remedy the issue.
+                </Subparagraph>
+                {Number(cqid) > 32 && Answer({ r, id: '31', desire: '0' }) && (
+                  <Subparagraph>
+                    (iv)	If Buyer does not promptly comply with the Claiming Instructions, Buyer’s 
+                    right to claim the  NFT Merchandise shall expire on {" "}
+                    <SEmbed r={r} id='32' />
+                  </Subparagraph>
+                )}
+                <p>
+                  (c)
+                  <Subparagraph>
+                    (i)	The parties acknowledge and agree that future situations or changing circumstances 
+                    that are outside Artist’s control may result in Artist being unable to deliver or 
+                    provide the NFT Access Rights despite Buyer’s compliance with the original Claiming 
+                    Instructions. In such an event, Artist may update this Agreement or the Claiming 
+                    Instructions in Artist’s sole discretion, provided, however, that any such update 
+                    must be intended primarily for the benefit of Buyer and also be reasonably likely to 
+                    benefit Buyer (a “Claiming Update”). In the event of any Claiming Update by Artist, 
+                    Artist will notify Buyer by updating the Claiming Instructions, amending this Agreement 
+                    wherever it is posted, and/or by using other generally accepted forms of communication. 
+                    Buyer’s continued possession of the NFT after Artist’s posting of such Claiming Update 
+                    constitutes Buyer’s acceptance and agreement to such update. If Buyer does not agree 
+                    to be bound by such changes, Buyer may transfer or sell the NFT.
+                  </Subparagraph>
+                  <Subparagraph>
+                    (ii)	Furthermore, Artist will not be liable or responsible to Buyer, nor be deemed to 
+                    have defaulted under or breached this agreement, if Buyer is unable utilize the NFT 
+                    Access Rights as a result of any events beyond Artist’s ability to control, including 
+                    acts of God; flood, fire, earthquake, epidemics, pandemics, tsunami, explosion, war, 
+                    invasion, hostilities, terrorist threats or acts, riot or other civil unrest, government 
+                    order, law, or action, embargoes or blockades, strikes, labor stoppages or slowdowns or 
+                    other industrial disturbances, shortage of adequate or suitable internet connectivity, 
+                    telecommunication breakdown or shortage of adequate power or electricity, and other 
+                    similar events beyond Artist’s control.
+                  </Subparagraph>
+                </p>
+                <p>
+                  (d)	Buyer acknowledges and agrees that if the NFT has been purchased on a secondary market, 
+                  the NFT Access Rights may have already been redeemed by the previous holder of the NFT. As 
+                  between Buyer and Artist, Buyer is solely responsible for determining whether any NFT Access 
+                  Rights that were originally included with the NFT can still be redeemed by complying with 
+                  the Claiming Instructions (or not). For clarity, Artist shall have no liability by virtue 
+                  of the fact that NFT Access Rights are no longer available to be redeemed.
+                </p>
+                <p>
+                  (e)	In connection with any NFT Access Rights granted to Buyer hereunder, Buyer agrees to 
+                  conduct him/herself professionally, civilly and respectfully at all times and in no event 
+                  will Buyer harass, solicit, stalk, maliciously target, or otherwise make hurtful, 
+                  defamatory, or derogatory comments towards, or engage in malicious conduct against, any 
+                  other person. Artist reserves the right to determine, in its sole discretion, what 
+                  constitutes harassment, mischief, or unacceptable conduct with or towards other persons 
+                  and where that has occurred, and may in its sole discretion, partially or completely deny, 
+                  suspend or terminate NFT Access rights for any Buyer that it determines has engaged in such 
+                  behavior. Additionally, Buyer shall comply with all rules, regulations, terms and conditions 
+                  promulgated by third parties in connection with the NFT Access rights (e.g. the rules of any 
+                  venue or event space or the terms and conditions of a Discord community).
+                </p>
+              </div>
+            )}
           </div>
         )}
       </InnerElement>
